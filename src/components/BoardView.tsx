@@ -8,11 +8,10 @@ interface BoardViewProps {
 }
 
 export const BoardView = ({ board, onClick }: BoardViewProps) => {
-   console.log(board);
    return (
-      <div className="board">
+      <div className="board" style={{ gridTemplateColumns: `repeat(${board.length}, 1fr)` }}>
          {board.map((row, rowIndex) =>
-            row.map((cell, colIndex) =>
+            row.map((cell, colIndex) => (
                <CellButton
                   key={`${rowIndex} - ${colIndex}`}
                   cellValue={cell}
@@ -20,7 +19,8 @@ export const BoardView = ({ board, onClick }: BoardViewProps) => {
                   colIndex={colIndex}
                   onClickCell={onClick}
                />
-            ))}
+            ))
+         )}
       </div>
    )
 }
