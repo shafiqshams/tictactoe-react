@@ -47,7 +47,7 @@ export const useTicTacToe = (boardSize: number) => {
       if (winner)
          return `Player ${winner} Wins!`;
 
-      if (!board.includes(null))
+      if (isBoardFull(board))
          return "Its a Draw!";
 
       return `Player ${isXNext ? "X" : "O"} turn`;
