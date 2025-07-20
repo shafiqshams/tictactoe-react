@@ -6,44 +6,33 @@ export const useTicTacToe = (boardSize: number) => {
 
    const [board, setBoard] = useState<Board>(getInitialBoard(boardSize));
    const [isXNext, setIsXNext] = useState<boolean>(true);
+   const [winner, setWinner] = useState<Cell>(null);
 
-   // Matching patterns
-   const WINNING_PATTERNS = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [6, 4, 2],
-   ];
+   const calculateWinner = (currentBoard: Board, rowIndex: number, colIndex: number): Cell => {
 
-   // Condition to check who wins the game
-   const calculateWinner = (currentBoard: BoardType[]) => {
+      const row = getRow(currentBoard, rowIndex);
+      const col = getColumn(currentBoard, colIndex);
+      const [primaryDiagonal, secondaryDiagonal] = getDiagonals(board);
 
-      // Iterate over the winning patterns and check for winner.
-      for (let i = 0; i < WINNING_PATTERNS.length; i++) {
-         const [a, b, c] = WINNING_PATTERNS[i];
-         if (currentBoard[a] && currentBoard[a] === currentBoard[b] && currentBoard[a] === currentBoard[c])
-            return currentBoard[a];
+      if (getUniformValue(row) || getUniformValue(col) || getUniformValue(primaryDiagonal) || getUniformValue(secondaryDiagonal)) {
+         // Now we get the winner
+         setWinner(currentBoard[rowIndex][colIndex])
       }
 
       return null;
    }
 
-   const handleClick = (index: number) => {
-      const winner = calculateWinner(board);
-      if (winner || board[index]) return;
+   const handleClick = (rowIndex: number, colIndex: number) => {
+      if (winner || board[rowIndex][colIndex]) return;
 
-      const newBoard: BoardType[] = [...board];
-      newBoard[index] = isXNext ? "X" : "O";
+      const newBoard: Board = [...board];
+      newBoard[rowIndex][colIndex] = isXNext ? "X" : "O";
       setBoard(newBoard);
       setIsXNext(!isXNext);
+      calculateWinner(newBoard, rowIndex, colIndex);
    }
 
    const getStatusMessage = (): string => {
-      const winner = calculateWinner(board);
       if (winner)
          return `Player ${winner} Wins!`;
 
@@ -56,11 +45,11 @@ export const useTicTacToe = (boardSize: number) => {
    const resetGame = () => {
       setBoard(getInitialBoard(boardSize));
       setIsXNext(true);
+      setWinner(null)
    }
 
    return {
       board,
-      calculateWinner,
       handleClick,
       getStatusMessage,
       resetGame
