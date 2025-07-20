@@ -1,4 +1,5 @@
 import { useTicTacToe } from "../hooks/useTicTacToe"
+import { BoardView } from "./BoardView";
 
 
 export const TicTacToe = () => {
@@ -12,19 +13,7 @@ export const TicTacToe = () => {
             <button className='reset-button' onClick={resetGame}>Reset Game</button>
          </div>
 
-         <div className="board">
-            {board.map((value, index) => {
-               return (
-                  <button
-                     key={`cell-${index}`}
-                     onClick={() => handleClick(index)}
-                     disabled={value !== null} // Disable it, if its filled 
-                     className="cell">
-                     {value}
-                  </button>
-               )
-            })}
-         </div>
+         <BoardView board={board} onClick={handleClick} />
       </div>
    )
 }
