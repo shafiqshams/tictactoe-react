@@ -2,9 +2,9 @@ import { useTicTacToe } from "../hooks/useTicTacToe"
 import { BoardView } from "./BoardView";
 
 
-export const TicTacToe = () => {
+export const TicTacToe = ({ boardSize }: { boardSize: number }) => {
 
-   const { board, handleClick, resetGame, getStatusMessage } = useTicTacToe();
+   const { board, handleClick, resetGame, getStatusMessage } = useTicTacToe(boardSize);
 
    return (
       <div className="game">
