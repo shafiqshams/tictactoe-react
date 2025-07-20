@@ -1,12 +1,10 @@
 import { useState } from "react";
+import type { Board, Cell } from "../types/board.types";
+import { getColumn, getDiagonals, getInitialBoard, getRow, getUniformValue, isBoardFull } from "../utils/boardHelpers";
 
-type BoardType = string | null;
+export const useTicTacToe = (boardSize: number) => {
 
-const initialBoard: BoardType[] = Array(9).fill(null);
-
-export const useTicTacToe = () => {
-
-   const [board, setBoard] = useState<BoardType[]>(initialBoard);
+   const [board, setBoard] = useState<Board>(getInitialBoard(boardSize));
    const [isXNext, setIsXNext] = useState<boolean>(true);
 
    // Matching patterns
@@ -56,7 +54,7 @@ export const useTicTacToe = () => {
    }
 
    const resetGame = () => {
-      setBoard(initialBoard);
+      setBoard(getInitialBoard(boardSize));
       setIsXNext(true);
    }
 
