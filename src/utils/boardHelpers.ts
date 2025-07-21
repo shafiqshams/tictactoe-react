@@ -14,15 +14,12 @@ export const getColumn = (board: Board, columnIndex: number): Column => {
    return board.map(row => row[columnIndex])
 }
 
-export const getDiagonals = (board: Board): [Row, Column] => {
-   const primaryDiagonal = [], secondaryDiagonal = [];
+export const getPrimaryDiagonal = (board: Board): Cell[] => {
+   return board.map((row, i) => row[i])
+}
 
-   for (let i = 0; i < board.length; i++) {
-      primaryDiagonal[i] = board[i][i];
-      secondaryDiagonal[i] = board[i][2 - i];
-   }
-
-   return [primaryDiagonal, secondaryDiagonal];
+export const getSecondaryDiagonal = (board: Board, boardSize: number): Cell[] => {
+   return board.map((row, i) => row[boardSize - (i + 1)])
 }
 
 export const isBoardFull = (board: Board): boolean => {

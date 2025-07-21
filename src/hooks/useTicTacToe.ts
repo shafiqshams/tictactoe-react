@@ -1,6 +1,14 @@
 import { useState } from "react";
 import type { Board, Cell } from "../types/board.types";
-import { getColumn, getDiagonals, getInitialBoard, getRow, getUniformValue, isBoardFull } from "../utils/boardHelpers";
+import {
+   getInitialBoard,
+   getRow,
+   getColumn,
+   getPrimaryDiagonal,
+   getSecondaryDiagonal,
+   getUniformValue,
+   isBoardFull
+} from "../utils/boardHelpers";
 
 export const useTicTacToe = (boardSize: number) => {
 
