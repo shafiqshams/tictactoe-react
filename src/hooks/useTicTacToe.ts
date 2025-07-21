@@ -20,9 +20,8 @@ export const useTicTacToe = (boardSize: number) => {
 
       const row = getRow(currentBoard, rowIndex);
       const col = getColumn(currentBoard, colIndex);
-      const primaryDiagonal = rowIndex === colIndex ? getPrimaryDiagonal(currentBoard) : [];
-      const secondaryDiagonal = (rowIndex + colIndex === boardSize - 1) ?
-         getSecondaryDiagonal(currentBoard, boardSize) : [];
+      const primaryDiagonal = getPrimaryDiagonal(currentBoard, rowIndex, colIndex);
+      const secondaryDiagonal = getSecondaryDiagonal(currentBoard, rowIndex, colIndex, boardSize);
 
       const winningPatterns = [
          getUniformValue(row),
