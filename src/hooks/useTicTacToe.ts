@@ -2,13 +2,9 @@ import { useState } from "react";
 import type { Board, Cell } from "../types/board.types";
 import {
    getInitialBoard,
-   getRow,
-   getColumn,
-   getPrimaryDiagonal,
-   getSecondaryDiagonal,
-   getUniformValue,
    isBoardFull
 } from "../utils/boardHelpers";
+import { getWinningPatterns } from "../utils/getWinningPatterns";
 
 export const useTicTacToe = (boardSize: number) => {
 
@@ -16,24 +12,13 @@ export const useTicTacToe = (boardSize: number) => {
    const [isXNext, setIsXNext] = useState<boolean>(true);
    const [winner, setWinner] = useState<Cell>(null);
 
-   const calculateWinner = (currentBoard: Board, rowIndex: number, colIndex: number) => {
+   const calculateWinner = (rowIndex: number, colIndex: number) => {
 
-      const row = getRow(currentBoard, rowIndex);
-      const col = getColumn(currentBoard, colIndex);
-      const primaryDiagonal = getPrimaryDiagonal(currentBoard, rowIndex, colIndex);
-      const secondaryDiagonal = getSecondaryDiagonal(currentBoard, rowIndex, colIndex, boardSize);
+      const winningPatterns = getWinningPatterns(board, rowIndex, colIndex)
+      const potentialWinner = winningPatterns.find(Boolean);
 
-      const winningPatterns = [
-         getUniformValue(row),
-         getUniformValue(col),
-         getUniformValue(primaryDiagonal),
-         getUniformValue(secondaryDiagonal)
-      ]
-
-      const isWinnerExists = winningPatterns.find(winner => !!winner);
-
-      if (isWinnerExists) {
-         setWinner(currentBoard[rowIndex][colIndex])
+      if (potentialWinner) {
+         setWinner(potentialWinner)
       }
    }
 
@@ -44,7 +29,7 @@ export const useTicTacToe = (boardSize: number) => {
       newBoard[rowIndex][colIndex] = isXNext ? "X" : "O";
       setBoard(newBoard);
       setIsXNext(!isXNext);
-      calculateWinner(newBoard, rowIndex, colIndex);
+      calculateWinner(rowIndex, colIndex);
    }
 
    const getStatusMessage = (): string => {
