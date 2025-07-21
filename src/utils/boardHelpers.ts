@@ -25,12 +25,3 @@ export const getSecondaryDiagonal = (board: Board, rowIndex: number, colIndex: n
 export const isBoardFull = (board: Board): boolean => {
    return board.every(row => row.every(cell => cell !== null))
 }
-
-export const getUniformValue = (array: Row | Column): Cell => {
-   const uniqueSet = new Set(array);
-   if (uniqueSet.size !== 1 || uniqueSet.has(null))
-      return null;
-
-   const [value] = uniqueSet;
-   return value;
-}
