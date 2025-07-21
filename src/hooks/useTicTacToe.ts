@@ -16,18 +16,25 @@ export const useTicTacToe = (boardSize: number) => {
    const [isXNext, setIsXNext] = useState<boolean>(true);
    const [winner, setWinner] = useState<Cell>(null);
 
-   const calculateWinner = (currentBoard: Board, rowIndex: number, colIndex: number): Cell => {
+   const calculateWinner = (currentBoard: Board, rowIndex: number, colIndex: number) => {
 
       const row = getRow(currentBoard, rowIndex);
       const col = getColumn(currentBoard, colIndex);
-      const [primaryDiagonal, secondaryDiagonal] = getDiagonals(board);
+      const primaryDiagonal = getPrimaryDiagonal(currentBoard);
+      const secondaryDiagonal = getSecondaryDiagonal(currentBoard, boardSize);
 
-      if (getUniformValue(row) || getUniformValue(col) || getUniformValue(primaryDiagonal) || getUniformValue(secondaryDiagonal)) {
-         // Now we get the winner
+      const winningPatterns = [
+         getUniformValue(row),
+         getUniformValue(col),
+         getUniformValue(primaryDiagonal),
+         getUniformValue(secondaryDiagonal)
+      ]
+
+      const isWinnerExists = winningPatterns.find(winner => !!winner);
+
+      if (isWinnerExists) {
          setWinner(currentBoard[rowIndex][colIndex])
       }
-
-      return null;
    }
 
    const handleClick = (rowIndex: number, colIndex: number) => {
