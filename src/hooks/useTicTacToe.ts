@@ -1,6 +1,7 @@
 import { useState } from "react";
 import type { Board, Cell } from "../types/board.types";
 import {
+   getBoardMoveCount,
    getInitialBoard,
    isBoardFull
 } from "../utils/boardHelpers";
@@ -29,7 +30,12 @@ export const useTicTacToe = (boardSize: number) => {
       newBoard[rowIndex][colIndex] = isXNext ? "X" : "O";
       setBoard(newBoard);
       setIsXNext(!isXNext);
-      calculateWinner(rowIndex, colIndex);
+
+      const minimumMovesToWin = boardSize * 2;
+      const movesMade = getBoardMoveCount(board);
+      if (movesMade >= minimumMovesToWin) {
+         calculateWinner(rowIndex, colIndex);
+      }
    }
 
    const getStatusMessage = (): string => {
@@ -45,7 +51,7 @@ export const useTicTacToe = (boardSize: number) => {
    const resetGame = () => {
       setBoard(getInitialBoard(boardSize));
       setIsXNext(true);
-      setWinner(null)
+      setWinner(null);
    }
 
    return {
