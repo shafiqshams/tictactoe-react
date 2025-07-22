@@ -25,3 +25,7 @@ export const getSecondaryDiagonal = (board: Board, rowIndex: number, colIndex: n
 export const isBoardFull = (board: Board): boolean => {
    return board.every(row => row.every(cell => cell !== null))
 }
+
+export const getBoardMoveCount = (board: Board): number => {
+   return board.flat().filter(cell => cell !== null).length;
+}
