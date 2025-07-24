@@ -8,10 +8,17 @@ interface CellButtonProps {
 }
 
 export const CellButton = ({ cellValue, rowIndex, colIndex, onClickCell }: CellButtonProps) => {
+
+   const getCellClass = () => {
+      if (cellValue === 'X') return 'cell x-cell';
+      if (cellValue === 'O') return 'cell o-cell';
+      return 'cell';
+   };
+
    return (
       <button
          disabled={cellValue !== null}
-         className="cell"
+         className={getCellClass()}
          onClick={() => onClickCell(rowIndex, colIndex)}>
          {cellValue}
       </button>
