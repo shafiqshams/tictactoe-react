@@ -15,8 +15,8 @@ export const useTicTacToe = (boardSize: number) => {
 
    const calculateWinner = (rowIndex: number, colIndex: number) => {
 
-      const winningPatterns = getWinningPatterns(board, rowIndex, colIndex)
-      const potentialWinner = winningPatterns.find(Boolean);
+      const winningPatterns = getWinningPatterns(board, rowIndex, colIndex);
+      const potentialWinner = winningPatterns.find(winner => winner !== null);
 
       if (potentialWinner) {
          setWinner(potentialWinner)
@@ -31,7 +31,7 @@ export const useTicTacToe = (boardSize: number) => {
       setBoard(newBoard);
       setIsXNext(!isXNext);
 
-      const minimumMovesToWin = boardSize * 2;
+      const minimumMovesToWin = boardSize * 2 - 1;
       const movesMade = getBoardMoveCount(board);
       if (movesMade >= minimumMovesToWin) {
          calculateWinner(rowIndex, colIndex);
