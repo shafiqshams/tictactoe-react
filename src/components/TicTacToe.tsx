@@ -10,6 +10,8 @@ export const TicTacToe = ({ boardSize }: { boardSize: number }) => {
 
    return (
       <div className="game">
+         <h1 className="headline">Welcome to Tic Tac Toe Game</h1>
+
          <div>
             <BoardView board={board} onClick={handleClick} />
 
