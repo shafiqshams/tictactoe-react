@@ -61,8 +61,6 @@ The app will be available at http://localhost:5173 (or your default Vite dev por
 
 ### Game Board
 <img width="320" height="300" alt="image" src="https://github.com/user-attachments/assets/6e463535-0f6c-4029-a7f0-ce25906170f2" />
-<img width="320" height="300" alt="image" src="https://github.com/user-attachments/assets/d4c0c81a-5d8c-451a-867f-8393611e08c8" />
-<img width="320" height="300" alt="image" src="https://github.com/user-attachments/assets/44242c84-76e3-4fb5-96e6-0669ed17b52e" />
 
 ## Try it on CodeSandbox
 
