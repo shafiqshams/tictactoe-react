@@ -1,5 +1,7 @@
 import { useTicTacToe } from "../hooks/useTicTacToe"
 import { BoardView } from "./BoardView";
+import { GameStatus } from "./GameStatus";
+import { ResetButton } from "./ResetButton";
 
 
 export const TicTacToe = ({ boardSize }: { boardSize: number }) => {
@@ -8,12 +10,14 @@ export const TicTacToe = ({ boardSize }: { boardSize: number }) => {
 
    return (
       <div className="game">
-         <div className="status">
-            {getStatusMessage()}
-            <button className='reset-button' onClick={resetGame}>Reset Game</button>
-         </div>
+         <div>
+            <BoardView board={board} onClick={handleClick} />
 
-         <BoardView board={board} onClick={handleClick} />
+            <div className="status-footer">
+               <GameStatus status={getStatusMessage()} />
+               <ResetButton resetGame={resetGame} />
+            </div>
+         </div>
       </div>
    )
 }
